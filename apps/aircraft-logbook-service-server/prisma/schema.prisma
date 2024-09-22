@@ -1,0 +1,55 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Aircraft {
+  createdAt          DateTime            @default(now())
+  id                 String              @id @default(cuid())
+  manufacturer       String?
+  model              String?
+  registrationNumber String?
+  status             EnumAircraftStatus?
+  updatedAt          DateTime            @updatedAt
+}
+
+model Component {
+  createdAt     DateTime             @default(now())
+  id            String               @id @default(cuid())
+  installedDate DateTime?
+  name          String?
+  serialNumber  String?
+  status        EnumComponentStatus?
+  updatedAt     DateTime             @updatedAt
+}
+
+model LogEntry {
+  createdAt   DateTime  @default(now())
+  description String?
+  fileUpload  Json?
+  id          String    @id @default(cuid())
+  logDate     DateTime?
+  performedAt DateTime?
+  updatedAt   DateTime  @updatedAt
+}
+
+model Logbook {
+  createdAt   DateTime  @default(now())
+  description String?
+  endDate     DateTime?
+  id          String    @id @default(cuid())
+  startDate   DateTime?
+  updatedAt   DateTime  @updatedAt
+}
+
+enum EnumAircraftStatus {
+  Option1
+}
+
+enum EnumComponentStatus {
+  Option1
+}
